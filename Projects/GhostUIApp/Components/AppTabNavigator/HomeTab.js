@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ListView, Platform, StatusBar } from 'react-native';
-import { Icon, Container, Content, List } from 'native-base';
+import { View, Text, StyleSheet, ListView, Platform, StatusBar, Image, TouchableOpacity } from 'react-native';
+import { Icon, Container, Content, Header, List } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import CardComponent from '../CardComponent';
 
@@ -19,76 +19,6 @@ class HomeTab extends Component {
     });
     this.state = {
       isLoading: false,
-      videos: ds.cloneWithRows([
-        {
-          etag: '"_gJQceDMxJ8gP-8T2HLXUoURK8c/i8OudJSZPFy2lcNph-s4_StYjlw"',
-          id: {
-            kind: 'youtube#video',
-            videoId: '2t1hEQs_lFc',
-          },
-          kind: 'youtube#searchResult',
-          snippet: {
-            channelId: 'UCKTkRSqdSzjGb7c0XmPldaQ',
-            channelTitle: 'MrGamer Fan',
-            description:
-              'Video used for entertainment purposes only. (Disclaimer) All material used is copyright of The Pokémon Company, ShoPro, Koch and Nintendo!! Help this video get 1 million views (Over 600K...',
-            liveBroadcastContent: 'none',
-            publishedAt: '2016-12-20T04:37:16.000Z',
-            thumbnails: {
-              default: {
-                height: 90,
-                url: 'https://i.ytimg.com/vi/2t1hEQs_lFc/default.jpg',
-                width: 120,
-              },
-              high: {
-                height: 360,
-                url: 'https://i.ytimg.com/vi/2t1hEQs_lFc/hqdefault.jpg',
-                width: 480,
-              },
-              medium: {
-                height: 180,
-                url: 'https://i.ytimg.com/vi/2t1hEQs_lFc/mqdefault.jpg',
-                width: 320,
-              },
-            },
-            title: 'Pokémon Origins FULL Movie English Dub',
-          },
-        },
-        {
-          etag: '"_gJQceDMxJ8gP-8T2HLXUoURK8c/i8OudJSZPFy2lcNph-s4_StYjlw"',
-          id: {
-            kind: 'youtube#video',
-            videoId: '2t1hEQs_lFc',
-          },
-          kind: 'youtube#searchResult',
-          snippet: {
-            channelId: 'UCKTkRSqdSzjGb7c0XmPldaQ',
-            channelTitle: 'MrGamer Fan',
-            description:
-              'Video used for entertainment purposes only. (Disclaimer) All material used is copyright of The Pokémon Company, ShoPro, Koch and Nintendo!! Help this video get 1 million views (Over 600K...',
-            liveBroadcastContent: 'none',
-            publishedAt: '2016-12-20T04:37:16.000Z',
-            thumbnails: {
-              default: {
-                height: 90,
-                url: 'https://i.ytimg.com/vi/2t1hEQs_lFc/default.jpg',
-                width: 120,
-              },
-              high: {
-                height: 360,
-                url: 'https://i.ytimg.com/vi/2t1hEQs_lFc/hqdefault.jpg',
-                width: 480,
-              },
-              medium: {
-                height: 180,
-                url: 'https://i.ytimg.com/vi/2t1hEQs_lFc/mqdefault.jpg',
-                width: 320,
-              },
-            },
-            title: 'Pokémon Origins FULL Movie English Dub',
-          },
-        },
-      ]),
     };
   }
 
@@ -99,12 +29,36 @@ class HomeTab extends Component {
   render() {
     return (
       <Container style={styles.container}>
+        <Header />
         <Content>
-
-
-            <SearchBar onSubmit={this._searchData.bind(this)} />
-            <VideoList items={this.state.videos} navigator={this.props.navigation} />
-
+          <Grid>
+            <Row size={50} style={styles.homeRow}>
+              <Col style={{ height: 200 }}>
+              <TouchableOpacity
+                  style={styles.imageWrapper}
+                  onPress={() => this.props.navigation.navigate('NewCutscenesTab')}
+                >
+                <Image style={styles.archive2} source={require('../../assets/archive_sections/enlightenment.png')} />
+                </TouchableOpacity>
+              </Col>
+              <Col style={{ height: 200 }}>
+                <TouchableOpacity
+                  style={styles.imageWrapper}
+                  onPress={() => this.props.navigation.navigate('CutscenesTab')}
+                >
+                  <Image style={styles.archive2} source={require('../../assets/archive_sections/cutscenes.png')} />
+                </TouchableOpacity>
+              </Col>
+            </Row>
+            <Row size={50} style={styles.homeRow}>
+              <Col style={{ height: 200 }}>
+                <Image style={styles.archive} source={require('../../assets/archive_sections/arsenal.png')} />
+              </Col>
+              <Col style={{ height: 200 }}>
+                <Image style={styles.archive} source={require('../../assets/archive_sections/codex.png')} />
+              </Col>
+            </Row>
+          </Grid>
         </Content>
       </Container>
     );
@@ -139,8 +93,51 @@ const styles = StyleSheet.create({
   rightNav: {
     flexDirection: 'row',
   },
+  homeRow: {
+    marginTop: 5,
+    marginBottom: 5,
+  },
   navItem: {
     marginLeft: 25,
+  },
+  archive: {
+    flex: 1,
+    height: undefined,
+    width: undefined,
+    resizeMode: 'contain',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
+  },
+  archive2: {
+    flex: 1,
+    height: undefined,
+    resizeMode: 'contain',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
+  },
+  imageWrapper: {
+    flex: 1,
+    overflow: 'hidden',
+    alignItems: 'center',
+    position: 'relative',
   },
   body: {
     flex: 1,
@@ -166,25 +163,3 @@ const styles = StyleSheet.create({
 
 //make this component available to the app
 export default HomeTab;
-
-/*
-<Container style={styles.container}>
-        <Content>
-          <Grid>ß
-            <Row>
-              <Text>Heder Element</Text>
-            </Row>
-
-            <Row>
-              <CardComponent imageSource="1" likes="101" />
-            </Row>
-            <Row>
-              <CardComponent imageSource="2" likes="101" />
-            </Row>
-            <Row>
-              <CardComponent imageSource="3" likes="101" />
-            </Row>
-          </Grid>
-        </Content>
-      </Container>
-      */

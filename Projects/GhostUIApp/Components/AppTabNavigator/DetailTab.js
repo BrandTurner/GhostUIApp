@@ -25,36 +25,55 @@ export default class DetailTab extends Component {
     tabBarIcon: ({ tintColor }) => <Icon name="ios-heart" style={{ color: tintColor }} />,
   };
   render() {
-    let { key, videos, navigator } = this.props.navigation.state.params;
-    let video = this.state.selectedVideo;
-    {
-      video.id.videoId;
-    }
+    let { key, video, videos, navigator } = this.props.navigation.state.params;
+
     return (
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <YouTube
-          videoId={video.id.videoId} // The YouTube video ID
-          play={true} // control playback of video with true/false
-          fullscreen={true} // control whether the video should play in fullscreen or inline
-          loop={true} // control whether the video should loop when ended
-          onReady={e => this.setState({ isReady: true })}
-          onChangeState={e => this.setState({ status: e.state })}
-          onChangeQuality={e => this.setState({ quality: e.quality })}
-          onError={e => this.setState({ error: e.error })}
-          style={{ alignSelf: 'stretch', height: 300 }}
+        <WebView
+          style={{ backgroundColor: 'black', marginTop: 9 }}
+          source={{ uri: `https://www.youtube.com/embed/${video.id.videoId}?showinfo=0&rel=0` }}
+          onLoadStart={() => this.setState({ showSpinner: true })}
+          onLoadEnd={() => this.setState({ showSpinner: false })}
         />
 
-        <View style={{ flex: 5, flexDirection: 'column' }}>
-          <VideoList
-            items={videos}
-            navigator={navigator}
-            style={{ marginTop: 0 }}
-            type="grid"
-            onVideoSelect={selectedVideo => {
-              this.setState({ selectedVideo });
-            }}
-          />
+        <View
+          style={{
+            paddingLeft: 15,
+            paddingRight: 15,
+            paddingTop: 0,
+            marginTop: 5,
+            paddingBottom: 5,
+            borderColor: '#e1e2e3',
+            borderBottomWidth: 1,
+            flex: 0,
+            flexDirection: 'row',
+          }}
+        >
+          <View style={styles.videoIconChannelContainer}>
+            <View style={[styles.videoIconChannel, { marginTop: 5 }]} />
+          </View>
+
+          <View style={styles.videoTextContainer}>
+            <Text style={styles.videoTitle}>
+              {' '}
+              {video.snippet.title} {this.showSpinner}{' '}
+            </Text>
+            <Text style={styles.videoDescription}>
+              {video.snippet.channelTitle.length > 30
+                ? video.snippet.channelTitle.substring(0, 30 - 3) + '...'
+                : video.snippet.channelTitle}
+              - {Moment(video.snippet.publishedAt).fromNow()}
+            </Text>
+          </View>
         </View>
+
+        <VideoList
+          items={videos}
+          navigator={navigator}
+          style={{ marginTop: 0,flex:1 }}
+          type="list"
+
+        />
       </View>
     );
   }

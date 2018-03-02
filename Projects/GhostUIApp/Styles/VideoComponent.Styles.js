@@ -11,21 +11,26 @@ const styles = StyleSheet.create({
   listItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
-    paddingBottom: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 0,
     borderColor: '#e1e2e3',
     borderBottomWidth: 1,
     flex: 1,
+    flexDirection: 'row',
   },
   videoImage: {
-    width: screen.width - 40,
+    width: 140,
     padding: 20,
-    height: 180,
+    height: 105,
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   videoContainer: {
     flex: 1,
     flexDirection: 'row',
     paddingTop: 10,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   videoIconChannelContainer: {
     flex: 1,
@@ -38,8 +43,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   videoTextContainer: {
-    flex: 4,
-    marginLeft: -10,
+    flex: 1,
+    paddingLeft: 3,
     paddingTop: 5,
   },
   videoTitle: {
