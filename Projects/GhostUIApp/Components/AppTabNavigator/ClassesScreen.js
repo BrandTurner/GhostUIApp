@@ -12,7 +12,7 @@ import Loader from '../Loader';
 import Api from '../../Utils/YoutubeApi';
 
 // create a component
-class HomeTab extends Component {
+class ClassesScreen extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({
@@ -22,10 +22,6 @@ class HomeTab extends Component {
       isLoading: false,
     };
   }
-
-  static navigationOptions = {
-    tabBarIcon: ({ tintColor }) => <Icon name="ios-home" style={{ color: tintColor }} />,
-  };
 
   render() {
     return (
@@ -37,9 +33,17 @@ class HomeTab extends Component {
               <Col style={{ height: 200 }}>
                 <TouchableOpacity
                   style={styles.imageWrapper}
-                  onPress={() => this.props.navigation.navigate('NewCutscenesTab')}
+                  onPress={() => this.props.navigation.navigate('GuardiansCard')}
                 >
-                  <Image style={styles.archive2} source={require('../../assets/archive_sections/enlightenment.png')} />
+                  <Image style={styles.archive2} source={require('../../assets/grimoire_cards/guardians.jpg')} />
+                </TouchableOpacity>
+              </Col>
+              <Col style={{ height: 200 }}>
+                <TouchableOpacity
+                  style={styles.imageWrapper}
+                  onPress={() => this.props.navigation.navigate('CutscenesTab')}
+                >
+                  <Image style={styles.archive2} source={require('../../assets/archive_sections/cutscenes.png')} />
                 </TouchableOpacity>
               </Col>
               <Col style={{ height: 200 }}>
@@ -68,30 +72,23 @@ class HomeTab extends Component {
                   <Image style={styles.archive2} source={require('../../assets/archive_sections/cutscenes.png')} />
                 </TouchableOpacity>
               </Col>
-            </Row>
-            <Row size={50} style={styles.homeRow}>
               <Col style={{ height: 200 }}>
-                <Image style={styles.archive} source={require('../../assets/archive_sections/arsenal.png')} />
-              </Col>
-              <Col style={{ height: 200 }}>
-                <Image style={styles.archive} source={require('../../assets/archive_sections/codex.png')} />
+                <TouchableOpacity
+                  style={styles.imageWrapper}
+                  onPress={() => this.props.navigation.navigate('CutscenesTab')}
+                >
+                  <Image style={styles.archive2} source={require('../../assets/archive_sections/cutscenes.png')} />
+                </TouchableOpacity>
               </Col>
             </Row>
+
           </Grid>
         </Content>
       </Container>
     );
   }
 
-  _searchData(query) {
-    this.setState({ isLoading: true, videos: this.state.videos.cloneWithRows([]) });
-    Api.search(query).then(data => {
-      this.setState({
-        videos: this.state.videos.cloneWithRows(data.items),
-        isLoading: false,
-      });
-    });
-  }
+
 }
 
 // define your styles
@@ -181,4 +178,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default HomeTab;
+export default ClassesScreen;

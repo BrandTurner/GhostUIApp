@@ -5,17 +5,9 @@ import MainScreen from './Components/MainScreen';
 
 export default class App extends React.Component {
   render() {
-    return (
-      <AppStackNavigator />
-    );
+    return <MainScreen />;
   }
 }
-
-const AppStackNavigator = StackNavigator({
-  Main: {
-    screen: MainScreen,
-  },
-});
 
 const styles = StyleSheet.create({
   container: {
